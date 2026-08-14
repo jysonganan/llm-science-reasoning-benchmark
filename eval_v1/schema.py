@@ -26,3 +26,4 @@ class Eval1Output(BaseModel):
 
 
 SCHEMA = Eval1Output.model_json_schema()
+SCHEMA["additionalProperties"] = False
