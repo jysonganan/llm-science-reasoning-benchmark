@@ -3,5 +3,7 @@ __pycache__/
 *.pyc
 .venv/
 venv/
-eval1_results.jsonl
-eval1_results.csv
+eval_v1/eval1_results.jsonl
+eval_v1/eval1_results.csv
+eval_v2/eval2_results.jsonl
+eval_v2/eval2_results.csv

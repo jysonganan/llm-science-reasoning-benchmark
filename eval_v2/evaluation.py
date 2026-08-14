@@ -1,0 +1,56 @@
+"""Grading, output validation, and per-provider evaluation harness."""
+from __future__ import annotations
+import json
+import time
+from typing import Any, Callable
+
+from schema import Eval2Output
+
+GOLD = {
+    "best_current_method": "AdaBN + Gradient Reversal",
+    "batch_information_remaining": True,
+    "hierarchical_vae_supported": True,
+    "effect_on_conclusion": "strengthen",
+}
+
+
+def grade_eval2(answer: dict[str, Any]) -> dict[str, Any]:
+    checks = {
+        "best_current_method": answer.get("best_current_method") == GOLD["best_current_method"],
+        "batch_information_remaining": answer.get("batch_information_remaining") is True,
+        "hierarchical_vae_supported": answer.get("hierarchical_vae_supported") is True,
+        "effect_on_conclusion": answer.get("effect_on_conclusion") == GOLD["effect_on_conclusion"],
+    }
+    score = sum(checks.values())
+    return {"score": score, "max_score": len(checks), "passed": score == len(checks), "checks": checks}
+
+
+def validate_output(raw: Any):
+    try:
+        if isinstance(raw, str):
+            raw = json.loads(raw)
+        parsed = Eval2Output.model_validate(raw)
+        return parsed.model_dump(), None
+    except Exception as e:
+        return None, str(e)
+
+
+def evaluate_provider(name: str, runner: Callable[[], dict[str, Any]]):
+    start = time.time()
+    try:
+        result = runner()
+        answer, schema_error = validate_output(result["raw_text"])
+        grade = grade_eval2(answer) if answer else {"score": 0, "max_score": 4, "passed": False, "checks": {}}
+        return {
+            "runner": name, "provider": result["provider"], "model": result["model"],
+            "latency_seconds": round(time.time() - start, 3),
+            "schema_valid": answer is not None, "schema_error": schema_error,
+            "answer": answer, "raw_text": result["raw_text"], "grade": grade, "error": None
+        }
+    except Exception as e:
+        return {
+            "runner": name, "provider": name, "model": None, "latency_seconds": round(time.time() - start, 3),
+            "schema_valid": False, "schema_error": None, "answer": None, "raw_text": None,
+            "grade": {"score": 0, "max_score": 4, "passed": False, "checks": {}},
+            "error": repr(e)
+        }
