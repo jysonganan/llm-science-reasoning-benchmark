@@ -1,0 +1,11 @@
+provider,model,schema_valid,score,passed,best_current_method,batch_remaining,vae_supported,effect_on_conclusion,latency_seconds,error
+openai,gpt-5.6-sol,True,3,False,AdaBN + Gradient Reversal,True,True,weaken,12.781,
+openai,gpt-5.6-sol,True,3,False,AdaBN + Gradient Reversal,True,True,weaken,15.713,
+openai,gpt-5.6-sol,True,3,False,AdaBN + Gradient Reversal,True,True,weaken,9.898,
+openai,gpt-5.6-sol,True,2,False,AdaBN + Gradient Reversal,True,False,weaken,15.864,
+openai,gpt-5.6-sol,True,2,False,AdaBN + Gradient Reversal,True,False,weaken,16.927,
+openai,gpt-5.6-sol,True,4,True,AdaBN + Gradient Reversal,True,True,strengthen,13.967,
+openai,gpt-5.6-sol,True,4,True,AdaBN + Gradient Reversal,True,True,strengthen,10.718,
+openai,gpt-5.6-sol,True,4,True,AdaBN + Gradient Reversal,True,True,strengthen,13.289,
+openai,gpt-5.6-sol,False,0,False,,,,,22.615,
+openai,gpt-5.6-sol,True,2,False,AdaBN + Gradient Reversal,True,False,weaken,11.349,
