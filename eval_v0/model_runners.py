@@ -16,7 +16,7 @@ def run_openai(model="gpt-5.6-sol"):
         input=EVAL1_PROMPT,
         reasoning={"effort": "high"},
         max_output_tokens=1200,
-        text={"format": {"type": "json_schema", "name": "eval2_output", "schema": SCHEMA, "strict": True}},
+        text={"format": {"type": "json_schema", "name": "eval1_output", "schema": SCHEMA, "strict": True}},
     )
     return {"provider": "openai", "model": model, "raw_text": r.output_text, "usage": getattr(r, "usage", None)}
 
@@ -61,7 +61,7 @@ def run_xai(model="grok-4.6"):
         instructions=SYSTEM_PROMPT,
         input=EVAL1_PROMPT,
         max_output_tokens=1200,
-        text={"format": {"type": "json_schema", "name": "eval2_output", "schema": SCHEMA, "strict": True}},
+        text={"format": {"type": "json_schema", "name": "eval1_output", "schema": SCHEMA, "strict": True}},
     )
     return {"provider": "xai", "model": model, "raw_text": r.output_text, "usage": getattr(r, "usage", None)}
 
@@ -92,7 +92,7 @@ def run_together(model: str, provider_name: str):
         max_tokens=1200,
         temperature=0,
         reasoning={"enabled": False},
-        response_format={"type": "json_schema", "json_schema": {"name": "eval2_output", "schema": SCHEMA}},
+        response_format={"type": "json_schema", "json_schema": {"name": "eval1_output", "schema": SCHEMA}},
     )
     return {"provider": provider_name, "model": model, "raw_text": r.choices[0].message.content, "usage": getattr(r, "usage", None)}
 

@@ -13,7 +13,7 @@ their own.
 - `eval_v1/` — original prompt/schema (7-field structured answer: best method, batch
   info, VAE motivation vs. validation, effect if predictions were confirmed, essential
   evidence, next experiment)
-- `eval_v2/` — shorter prompt, 4-field structured answer (best method, batch info, VAE
+- `eval_v0/` — shorter prompt, 4-field structured answer (best method, batch info, VAE
   support, effect on conclusion)
 
 Each version folder is self-contained:
@@ -40,9 +40,9 @@ Run each version separately:
 
 ```bash
 python eval_v1/main.py
-python eval_v2/main.py
+python eval_v0/main.py
 ```
 
 Results are written next to each `main.py`: `eval_v1/eval1_results.jsonl` /
-`eval_v1/eval1_results.csv`, and `eval_v2/eval2_results.jsonl` / `eval_v2/eval2_results.csv`.
+`eval_v1/eval1_results.csv`, and `eval_v0/eval1_results.jsonl` / `eval_v0/eval1_results.csv`.
 Only providers whose API key is set in `.env` are run; others are skipped.

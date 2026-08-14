@@ -5,5 +5,5 @@ __pycache__/
 venv/
 eval_v1/eval1_results.jsonl
 eval_v1/eval1_results.csv
-eval_v2/eval2_results.jsonl
-eval_v2/eval2_results.csv
+eval_v0/eval1_results.jsonl
+eval_v0/eval1_results.csv

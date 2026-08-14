@@ -1,4 +1,4 @@
-"""System and task prompts for Evaluation 2: batch-invariant morphology embeddings (v2 phrasing)."""
+"""System and task prompts for Evaluation 1: batch-invariant morphology embeddings (v1 phrasing)."""
 from __future__ import annotations
 
 SYSTEM_PROMPT = """You are a scientific reviewer evaluating evidence from a computational-biology experiment. Use only the information supplied in the task. Do not browse, use external facts, or assume missing experimental results. Distinguish a scientifically motivated hypothesis from an empirically validated result. Return only the requested structured output."""

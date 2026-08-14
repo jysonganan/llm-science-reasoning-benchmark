@@ -4,7 +4,7 @@ import json
 import time
 from typing import Any, Callable
 
-from schema import Eval2Output
+from schema import Eval1Output
 
 GOLD = {
     "best_current_method": "AdaBN + Gradient Reversal",
@@ -14,7 +14,7 @@ GOLD = {
 }
 
 
-def grade_eval2(answer: dict[str, Any]) -> dict[str, Any]:
+def grade_eval1(answer: dict[str, Any]) -> dict[str, Any]:
     checks = {
         "best_current_method": answer.get("best_current_method") == GOLD["best_current_method"],
         "batch_information_remaining": answer.get("batch_information_remaining") is True,
@@ -29,7 +29,7 @@ def validate_output(raw: Any):
     try:
         if isinstance(raw, str):
             raw = json.loads(raw)
-        parsed = Eval2Output.model_validate(raw)
+        parsed = Eval1Output.model_validate(raw)
         return parsed.model_dump(), None
     except Exception as e:
         return None, str(e)
@@ -40,7 +40,7 @@ def evaluate_provider(name: str, runner: Callable[[], dict[str, Any]]):
     try:
         result = runner()
         answer, schema_error = validate_output(result["raw_text"])
-        grade = grade_eval2(answer) if answer else {"score": 0, "max_score": 4, "passed": False, "checks": {}}
+        grade = grade_eval1(answer) if answer else {"score": 0, "max_score": 4, "passed": False, "checks": {}}
         return {
             "runner": name, "provider": result["provider"], "model": result["model"],
             "latency_seconds": round(time.time() - start, 3),
